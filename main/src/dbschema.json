@@ -22,6 +22,29 @@
 			],
 			"indexes": ["CREATE UNIQUE INDEX path ON json(directory, site, file_name)"],
 			"schema_changed": 4
+		},
+
+		"theme": {
+			"cols": [
+				["title", "TEXT"],
+				["zip_name", "TEXT"],
+				["screenshot_name", "TEXT"],
+				["version", "INTEGER"],
+				["json_id", "INTEGER"]
+			],
+			"indexes": [],
+			"schema_changed": 1
+		},
+		"plugin": {
+			"cols": [
+				["title", "TEXT"],
+				["description", "TEXT"],
+				["zip_name", "TEXT"],
+				["version", "INTEGER"],
+				["json_id", "INTEGER"]
+			],
+			"indexes": [],
+			"schema_changed": 1
 		}
 	}
 }
