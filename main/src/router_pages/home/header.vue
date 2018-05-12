@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<div class="buttons">
-			<zms-button icon="brands/github" text="Source Code" />
+			<zms-button icon="brands/github" text="Source Code" @click="go('https://github.com/imachug/zms')" />
 		</div>
 
 		<h1>ZMS</h1>
@@ -41,6 +41,12 @@
 	import "vue-awesome/icons/brands/github";
 
 	export default {
-		name: "zms-header"
+		name: "zms-header",
+
+		methods: {
+			go(url) {
+				window.top.location.href = url;
+			}
+		}
 	};
 </script>
