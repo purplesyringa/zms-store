@@ -5,8 +5,7 @@
 		<zms-slide header="Upload theme">
 			<div class="inputs">
 				<input placeholder="Awesome Theme" v-model="title" :class="{error: title === 'Please fill in title'}">
-				<input type="file" @change="updateFile">
-				<span class="error">{{fileError}}</span>
+				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" />
 				<zms-small-button icon="share-square" text="Upload" @click="upload" />
 			</div>
 			<div>
@@ -55,14 +54,7 @@
 					return;
 				}
 
-				console.log(this.title, this.file);
-			},
-
-			updateFile(e) {
-				this.file = e.target.files[0];
-				if(this.file) {
-					this.fileError = "";
-				}
+				console.log(this.file);
 			}
 		}
 	};

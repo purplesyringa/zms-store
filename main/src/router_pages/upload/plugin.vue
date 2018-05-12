@@ -6,8 +6,7 @@
 			<div class="inputs">
 				<input placeholder="Awesome Plugin" v-model="title" :class="{error: title === 'Please fill in title'}">
 				<textarea placeholder="This plugin will make your blog awesome by doing many awesome things!" v-model="description" :class="{error: description === 'Please fill in description'}"></textarea>
-				<input type="file" @change="updateFile">
-				<span class="error">{{fileError}}</span>
+				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" />
 				<zms-small-button icon="share-square" text="Upload" @click="upload" />
 			</div>
 			<div>
@@ -62,13 +61,6 @@
 				}
 
 				console.log(this.title, this.description, this.file);
-			},
-
-			updateFile(e) {
-				this.file = e.target.files[0];
-				if(this.file) {
-					this.fileError = "";
-				}
 			}
 		}
 	};
