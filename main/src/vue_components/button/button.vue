@@ -1,5 +1,5 @@
 <template>
-	<button class="btn" @click="$emit('click')">
+	<button :class="{btn: true, light}" @click="$emit('click')">
 		<icon :name="icon" class="icon" />
 		{{text}}
 	</button>
@@ -7,6 +7,7 @@
 
 <style lang="sass" scoped>
 	$color: darken(#327ACE, 5%)
+	$light-color: lighten(#327ACE, 10%)
 
 	.btn
 		display: block
@@ -48,11 +49,24 @@
 		width: 40%
 		height: 50%
 		color: rgba(0, 0, 0, 0.2)
+
+
+	.light
+		background: $light-color
+		box-shadow: 0 5px darken($light-color, 5%)
+	.light:hover
+		box-shadow: 0 2px darken($light-color, 5%)
+		margin-top: 35px
+		margin-bottom: -3px
+	.light:active
+		background: darken($light-color, 5%)
+	.light .icon
+		color: rgba(255, 255, 255, 0.8)
 </style>
 
 <script type="text/javascript">
 	export default {
 		name: "zms-button",
-		props: ["text", "icon"]
+		props: ["text", "icon", "light"]
 	};
 </script>
