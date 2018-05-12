@@ -1,5 +1,9 @@
 <template>
 	<header>
+		<div class="buttons">
+			<zms-button icon="brands/github" text="Source Code" />
+		</div>
+
 		<h1>ZMS</h1>
 		<h2>Zero Management System<br>First CMS for ZeroNet</h2>
 	</header>
@@ -25,9 +29,17 @@
 	h2
 		font-size: 64px
 		color: rgba(255, 255, 255, 0.7)
+
+
+	.buttons
+		float: right
+		margin-top: 64px
+		margin-right: 128px
 </style>
 
 <script type="text/javascript">
+	import "vue-awesome/icons/brands/github";
+
 	export default {
 		name: "zms-header"
 	};
