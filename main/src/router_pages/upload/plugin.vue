@@ -6,7 +6,7 @@
 			<div class="inputs">
 				<input placeholder="Awesome Plugin" v-model="title" :class="{error: title === 'Please fill in title'}">
 				<textarea placeholder="This plugin will make your blog awesome by doing many awesome things!" v-model="description" :class="{error: description === 'Please fill in description'}"></textarea>
-				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" />
+				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" ref="file" />
 				<zms-small-button icon="share-square" text="Upload" @click="upload" />
 			</div>
 			<div>
@@ -54,6 +54,10 @@
 				}
 				if(!this.file) {
 					this.fileError = "Please choose ZIP";
+					error = true;
+				}
+				if(this.file && this.file.type !== "application/x-zip-compressed") {
+					this.$refs.file.$emit("error", "Please choose ZIP archive, not " + (this.file.type || "plain/text"));
 					error = true;
 				}
 				if(error) {
