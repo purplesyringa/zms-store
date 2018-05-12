@@ -11,7 +11,7 @@
 		</zms-slide>
 
 		<zms-slide header="Community">
-			<i>Community is everything.</i> Themes and plugins are all made by the community for the community. Make your own plugin or theme and upload it to ZMS Store or help us by <a href="https://github.com/imachug/zms">developing ZMS</a>!
+			<i>Community is everything.</i> Themes and plugins are all made by the community for the community. Make your own plugin or theme and <a @click="$router.navigate('upload')">upload it to ZMS Store</a> or help us by <a href="https://github.com/imachug/zms">developing ZMS</a>!
 		</zms-slide>
 	</div>
 </template>
