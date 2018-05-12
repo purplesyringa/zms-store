@@ -112,6 +112,12 @@ module.exports = {
 				from: "./data",
 				to: "./data"
 			}
-		])
+		]),
+		new CopyWebpackPlugin([
+			{
+				from: "./fonts/OFL.txt",
+				to: "./fonts/OFL.txt"
+			}
+		]),
 	]
 };
