@@ -6,6 +6,12 @@ import Vue from "vue/dist/vue.min.js";
 import AsyncComputed from "vue-async-computed";
 Vue.use(AsyncComputed);
 
+import Icon from "vue-awesome/components/Icon.vue";
+Vue.component("icon", Icon);
+
+import Button from "./vue_components/button/button.vue";
+Vue.component("zms-button", Button);
+
 Vue.prototype.$eventBus = new Vue();
 
 import root from "./vue_components/root.vue";
