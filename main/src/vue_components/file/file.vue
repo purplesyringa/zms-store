@@ -42,23 +42,32 @@
 			return {
 				placeholder: "",
 				error: "",
-				_error: "",
 				id: "zmsfileinput" + Math.random().toString(36).substr(2),
-				value: null
+				value: null,
+				name: ""
 			};
+		},
+
+		mounted() {
+			this.$on("error", this.onError);
+		},
+		destroyed() {
+			this.$off("error", this.onError);
 		},
 
 		methods: {
 			changed(e) {
 				this.value = e.target.files[0];
+				this.name = this.value ? this.value.name : "";
 				this.error = "";
 				this.$emit("input", this.value);
-			}
-		},
+			},
 
-		computed: {
-			name() {
-				return this.value ? this.value.name : "";
+			onError(e) {
+				this.$nextTick(() => {
+					this.name = "";
+					this.error = e;
+				});
 			}
 		}
 	};
