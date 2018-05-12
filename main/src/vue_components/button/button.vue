@@ -9,27 +9,34 @@
 	$color: darken(#327ACE, 5%)
 
 	.btn
-		border: none
+		display: block
+		width: 350px
+		margin: 0 30px
+		margin-top: 32px
+		padding: 25px 60px 25px 120px
+
+		position: relative
+
 		font-family: Verdana, Arial, sans-serif
 		font-size: 20px
-		cursor: pointer
-		display: inline-block
-		margin: 15px 30px
 		letter-spacing: 1px
 		font-weight: 700
+		color: rgba(255, 255, 255, 0.8)
+
+		vertical-align: top
+		border: none
 		outline: none
-		position: relative
+		cursor: pointer
 		transition: all 0.3s
 
 		background: $color
-		color: rgba(255, 255, 255, 0.8)
 		border-radius: 7px
 		box-shadow: 0 5px darken($color, 5%)
-		padding: 25px 60px 25px 120px
 
 	.btn:hover
 		box-shadow: 0 2px darken($color, 5%)
-		margin-top: 18px
+		margin-top: 35px
+		margin-bottom: -3px
 
 	.btn:active
 		background: lighten($color, 2%)
