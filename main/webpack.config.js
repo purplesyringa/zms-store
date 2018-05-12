@@ -3,6 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
 	context: path.resolve(__dirname, "./src"),
@@ -131,5 +132,21 @@ module.exports = {
 				to: "./external/babel.js"
 			}
 		]),
+
+		new BundleAnalyzerPlugin({
+			analyzerPort: 8275
+		}),
+
+		// Move out node_modules
+		new webpack.optimize.CommonsChunkPlugin({
+			name: "corejs",
+			minChunks: module => /node_modules/.test(module.resource || "")
+		}),
+
+		// Move out core-js
+		new webpack.optimize.CommonsChunkPlugin({
+			name: "vendor",
+			minChunks: module => !/core-js/.test(module.resource || "")
+		})
 	]
 };
