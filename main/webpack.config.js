@@ -119,5 +119,17 @@ module.exports = {
 				to: "./fonts/OFL.txt"
 			}
 		]),
+		new CopyWebpackPlugin([
+			{
+				from: require.resolve("sass.js/dist/sass.sync.js"),
+				to: "./external/sass.js"
+			}
+		]),
+		new CopyWebpackPlugin([
+			{
+				from: require.resolve("@babel/standalone"),
+				to: "./external/babel.js"
+			}
+		]),
 	]
 };
