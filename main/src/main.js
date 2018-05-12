@@ -15,6 +15,9 @@ Vue.component("zms-button", Button);
 import SmallHeader from "./vue_components/header/header.vue";
 Vue.component("zms-small-header", SmallHeader);
 
+import Slide from "./vue_components/slide/slide.vue";
+Vue.component("zms-slide", Slide);
+
 Vue.prototype.$eventBus = new Vue();
 
 import root from "./vue_components/root.vue";

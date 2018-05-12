@@ -9,7 +9,7 @@
 
 <style lang="sass" scoped>
 	.slide
-		margin: 32px 128px
+		margin: 32px 192px
 		text-align: center
 
 	header

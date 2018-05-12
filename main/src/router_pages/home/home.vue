@@ -23,13 +23,11 @@
 
 <script type="text/javascript">
 	import Header from "./header.vue";
-	import Slide from "./slide.vue";
 
 	export default {
 		name: "home",
 		components: {
-			"zms-header": Header,
-			"zms-slide": Slide
+			"zms-header": Header
 		}
 	};
 </script>

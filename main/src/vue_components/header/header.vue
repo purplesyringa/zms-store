@@ -1,5 +1,5 @@
 <template>
-	<header>
+	<header @click="$router.navigate('')">
 		<h1>ZMS</h1>
 		<h2>Zero Management System &mdash; First CMS for ZeroNet</h2>
 	</header>
@@ -8,7 +8,8 @@
 <style lang="sass" scoped>
 	header
 		background-color: #327ACE
-		padding: 32px 128px
+		padding: 32px 192px
+		cursor: pointer
 
 	h1, h2
 		display: inline-block
