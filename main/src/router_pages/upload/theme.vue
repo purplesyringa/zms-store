@@ -6,6 +6,7 @@
 			<div class="inputs">
 				<input placeholder="Awesome Theme" v-model="title" :class="{error: title === 'Please fill in title'}">
 				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" />
+				<zms-file-input placeholder="Screenshot" :error="screenshotError" v-model="screenshot" />
 				<zms-small-button icon="share-square" text="Upload" @click="upload" />
 			</div>
 			<div>
@@ -35,7 +36,9 @@
 			return {
 				title: "",
 				file: null,
-				fileError: ""
+				fileError: "",
+				screenshot: null,
+				screenshotError: ""
 			};
 		},
 
@@ -48,6 +51,10 @@
 				}
 				if(!this.file) {
 					this.fileError = "Please choose ZIP";
+					error = true;
+				}
+				if(!this.screenshot) {
+					this.screenshotError = "Please choose a screenshot";
 					error = true;
 				}
 				if(error) {
