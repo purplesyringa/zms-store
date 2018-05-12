@@ -4,10 +4,11 @@
 
 		<zms-slide header="Upload plugin">
 			<div class="inputs">
-				<input placeholder="Awesome Plugin">
-				<textarea placeholder="This plugin will make your blog awesome by doing many awesome things!"></textarea>
-				<input type="file">
-				<zms-small-button icon="share-square" text="Submit" />
+				<input placeholder="Awesome Plugin" v-model="title" :class="{error: title === 'Please fill in title'}">
+				<textarea placeholder="This plugin will make your blog awesome by doing many awesome things!" v-model="description" :class="{error: description === 'Please fill in description'}"></textarea>
+				<input type="file" @change="updateFile">
+				<span class="error">{{fileError}}</span>
+				<zms-small-button icon="share-square" text="Upload" @click="upload" />
 			</div>
 			<div>
 				First, make a plugin via the instructions in <a @click="$router.navigate('dev/plugin')">How to make a plugin</a> section. Give your plugin a name and enter a description. Then pack your plugin to ZIP archive and upload it.<br>
@@ -22,12 +23,53 @@
 	.inputs
 		float: left
 		margin-right: 32px
+
+	.error
+		color: #CE3232
 </style>
 
 <script type="text/javascript">
 	import "vue-awesome/icons/share-square";
 
 	export default {
-		name: "upload-plugin"
+		name: "upload-plugin",
+		data() {
+			return {
+				title: "",
+				description: "",
+				file: null,
+				fileError: ""
+			};
+		},
+
+		methods: {
+			upload() {
+				let error = false;
+				if(!this.title || this.title === "Please fill in title") {
+					this.title = "Please fill in title";
+					error = true;
+				}
+				if(!this.description || this.description === "Please fill in description") {
+					this.description = "Please fill in description";
+					error = true;
+				}
+				if(!this.file) {
+					this.fileError = "Please choose ZIP";
+					error = true;
+				}
+				if(error) {
+					return;
+				}
+
+				console.log(this.title, this.description, this.file);
+			},
+
+			updateFile(e) {
+				this.file = e.target.files[0];
+				if(this.file) {
+					this.fileError = "";
+				}
+			}
+		}
 	};
 </script>
