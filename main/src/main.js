@@ -15,6 +15,9 @@ Vue.component("zms-button", Button);
 import SmallButton from "./vue_components/button/small.vue";
 Vue.component("zms-small-button", SmallButton);
 
+import FielInput from "./vue_components/file/file.vue";
+Vue.component("zms-file-input", FielInput);
+
 import SmallHeader from "./vue_components/header/header.vue";
 Vue.component("zms-small-header", SmallHeader);
 
