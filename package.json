@@ -55,6 +55,7 @@
     "vue-awesome": "^3.0.0",
     "vue-hot-reload-api": "^2.2.4",
     "vueify": "^9.4.1",
+    "webpack-bundle-analyzer": "^2.11.2",
     "zero-dev-lib": "^1.0.0"
   },
   "browser": {
