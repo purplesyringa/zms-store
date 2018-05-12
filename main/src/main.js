@@ -12,6 +12,9 @@ Vue.component("icon", Icon);
 import Button from "./vue_components/button/button.vue";
 Vue.component("zms-button", Button);
 
+import SmallHeader from "./vue_components/header/header.vue";
+Vue.component("zms-small-header", SmallHeader);
+
 Vue.prototype.$eventBus = new Vue();
 
 import root from "./vue_components/root.vue";
