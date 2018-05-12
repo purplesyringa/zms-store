@@ -1,4 +1,5 @@
 import "./sass/main.sass";
+import "./fonts/Lobster-Regular.ttf";
 
 import Vue from "vue/dist/vue.min.js";
 
