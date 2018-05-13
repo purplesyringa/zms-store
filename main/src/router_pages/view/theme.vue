@@ -12,7 +12,7 @@
 				</div>
 
 				<div :class="['verified', ['unverified', 'not-yet-verified', ''][theme.verified + 1]]">
-					<icon v-if="admin" name="thumbs-up" />
+					<icon v-if="admin" name="thumbs-up" @click.native="verify(1)" />
 
 					<template v-if="theme.verified == 1">
 						VERIFIED
@@ -24,7 +24,7 @@
 						NOT YET VERIFIED
 					</template>
 
-					<icon v-if="admin" name="thumbs-down" />
+					<icon v-if="admin" name="thumbs-down" @click.native="verify(-1)" />
 				</div>
 			</div>
 
@@ -108,6 +108,13 @@
 		methods: {
 			downloadAsZip() {
 				top.location.href = this.theme.zip;
+			},
+
+			async verify(value) {
+				console.log(value);
+				const {address, title} = this.$router.currentParams;
+				await Themes.verify(address, title, this.theme.version, value);
+				this.theme.verified = value;
 			}
 		}
 	};

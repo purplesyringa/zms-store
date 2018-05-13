@@ -95,7 +95,17 @@ class Themes {
 		if(!v.length) {
 			return 0;
 		}
-		return v.verified;
+		return v[0].verified;
+	}
+
+	async verify(address, title, version, value) {
+		const id = `theme/${escape(address)}/${escape(title)}/${escape(version)}`;
+		await zeroDB.changePair(
+			`data/verified/content.json`,
+			`data/verified/content.json`,
+			"verified",
+			id, value
+		);
 	}
 }
 
