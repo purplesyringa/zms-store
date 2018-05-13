@@ -9,8 +9,8 @@
   },
   "permission_rules": {
    ".*": {
-    "files_allowed": "data.json",
-    "max_size": 50000
+    "files_allowed": "data.json|.*.jpg|.*.png|.*.gif|.*.jpeg|.*.webm|.*.zip",
+    "max_size": 1000000
    }
   },
   "permissions": {}
