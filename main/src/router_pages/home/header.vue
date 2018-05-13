@@ -20,7 +20,7 @@
 
 	h1, h2
 		margin: 0
-		padding-left: 192px
+		padding-left: 256px
 		padding-top: 32px
 		font-family: Lobster, Verdana, Arial, sans-serif
 
@@ -35,7 +35,7 @@
 	.buttons
 		float: right
 		margin-top: 64px
-		margin-right: 192px
+		margin-right: 256px
 </style>
 
 <script type="text/javascript">

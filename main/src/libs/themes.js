@@ -62,6 +62,22 @@ class Themes {
 
 		return `${auth.address}/${escape(title)}`;
 	}
+
+	async get(address, title) {
+		const themes = await zeroDB.query(`
+			SELECT * FROM theme
+			LEFT JOIN json ON (theme.json_id = json.json_id)
+			WHERE title = :title AND directory = :directory
+		`, {
+			title,
+			directory: `users/${address}`
+		});
+		const theme = themes[0];
+
+		theme.zip = `data/users/${address}/${theme.zip_name}`;
+		theme.screenshot = `data/users/${address}/${theme.screenshot_name}`;
+		return theme;
+	}
 }
 
 export default new Themes();

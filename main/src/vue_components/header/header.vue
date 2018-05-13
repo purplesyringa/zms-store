@@ -8,7 +8,7 @@
 <style lang="sass" scoped>
 	header
 		background-color: #327ACE
-		padding: 32px 192px
+		padding: 32px 256px
 		cursor: pointer
 
 	h1, h2

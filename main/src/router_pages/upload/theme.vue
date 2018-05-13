@@ -21,7 +21,7 @@
 	</div>
 </template>
 
-<style lang="sass">
+<style lang="sass" scoped>
 	.inputs
 		float: left
 		margin-right: 32px
