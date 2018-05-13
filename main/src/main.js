@@ -32,7 +32,11 @@ var app = new Vue({
 	render: h => h(root),
 	data: {
 		currentView: null,
-		zeroPage: null
+		siteInfo: {
+			settings: {
+				own: false
+			}
+		}
 	}
 });
 
@@ -44,7 +48,9 @@ Vue.prototype.$zeroPage = zeroPage;
 (async function() {
 	const siteInfo = await zeroPage.getSiteInfo();
 	app.$eventBus.$emit("setSiteInfo", siteInfo);
+	app.siteInfo = siteInfo;
 })();
 zeroPage.on("setSiteInfo", msg => {
 	app.$eventBus.$emit("setSiteInfo", msg.params);
+	app.siteInfo = msg.params;
 });
