@@ -12,6 +12,8 @@
 				</div>
 
 				<div :class="['verified', ['unverified', 'not-yet-verified', ''][theme.verified + 1]]">
+					<icon v-if="admin" name="thumbs-up" />
+
 					<template v-if="theme.verified == 1">
 						VERIFIED
 					</template>
@@ -21,6 +23,8 @@
 					<template v-else>
 						NOT YET VERIFIED
 					</template>
+
+					<icon v-if="admin" name="thumbs-down" />
 				</div>
 			</div>
 
@@ -69,6 +73,8 @@
 <script type="text/javascript">
 	import Themes from "../../libs/themes.js";
 	import "vue-awesome/icons/file-archive";
+	import "vue-awesome/icons/thumbs-up";
+	import "vue-awesome/icons/thumbs-down";
 
 	export default {
 		name: "view-theme",
@@ -90,6 +96,12 @@
 					cert_user_id: "",
 					verified: 1
 				}
+			}
+		},
+
+		computed: {
+			admin() {
+				return this.$root.siteInfo.settings.own;
 			}
 		},
 
