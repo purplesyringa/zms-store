@@ -84,6 +84,12 @@ module.exports = {
 			{
 				test: /\.(ttf|otf|eot|woff2?)$/,
 				loader: "file-loader?name=fonts/[name].[ext]"
+			},
+			{
+				enforce: "pre",
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "eslint-loader"
 			}
 		]
 	},
