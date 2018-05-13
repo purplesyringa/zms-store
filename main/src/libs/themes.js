@@ -24,6 +24,17 @@ class Themes {
 		return themes;
 	}
 
+	async getAllThemeList() {
+		let themes = await zeroDB.query(`
+			SELECT * FROM theme
+			LEFT JOIN json ON (theme.json_id = json.json_id)
+		`);
+		for(let theme of themes) {
+			theme.verified = await this.isVerified(theme.directory.replace("users/", ""), theme.title, theme.version);
+		}
+		return themes;
+	}
+
 	async publish(title, zip, screenshot) {
 		if(encodeURIComponent(title) !== escape(title)) {
 			throw new Error("Use only English for the title");
