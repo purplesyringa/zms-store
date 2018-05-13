@@ -59,6 +59,8 @@ class Themes {
 
 		// Awesome!
 		zeroPage.publish(`data/users/${auth.address}/content.json`);
+
+		return `${auth.address}/${escape(title)}`;
 	}
 }
 

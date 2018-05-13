@@ -75,7 +75,8 @@
 				}
 
 				try {
-					await Themes.publish(this.title, this.file, this.screenshot);
+					const id = await Themes.publish(this.title, this.file, this.screenshot);
+					this.$router.navigate(`view/theme/${id}`);
 				} catch(e) {
 					this.error = e.message;
 				}
