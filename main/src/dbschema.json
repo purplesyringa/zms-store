@@ -14,6 +14,15 @@
 					"key_col": "title"
 				}
 			]
+		},
+		"verified/content.json": {
+			"to_table": [
+				{
+					"table": "verified",
+					"key_col": "id",
+					"val_col": "verified"
+				}
+			]
 		}
 	},
 	"tables": {
@@ -45,6 +54,16 @@
 				["description", "TEXT"],
 				["zip_name", "TEXT"],
 				["version", "INTEGER"],
+				["json_id", "INTEGER"]
+			],
+			"indexes": [],
+			"schema_changed": 1
+		},
+
+		"verified": {
+			"cols": [
+				["id", "TEXT"],
+				["verified", "INTEGER"],
 				["json_id", "INTEGER"]
 			],
 			"indexes": [],

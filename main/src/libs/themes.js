@@ -7,11 +7,15 @@ class Themes {
 
 		const selfJsonId = await zeroDB.getJsonID(`users/${auth.address}/data.json`, 2);
 
-		return await zeroDB.query(`
+		let themes = await zeroDB.query(`
 			SELECT * FROM theme WHERE json_id = :self_json_id
 		`, {
 			self_json_id: selfJsonId
 		});
+		for(let theme of themes) {
+			theme.verified = await this.isVerified(auth.address, theme.title, theme.version);
+		}
+		return themes;
 	}
 
 	async publish(title, zip, screenshot) {
@@ -76,7 +80,22 @@ class Themes {
 
 		theme.zip = `data/users/${address}/${theme.zip_name}`;
 		theme.screenshot = `data/users/${address}/${theme.screenshot_name}`;
+
+		theme.verified = await this.isVerified(address, theme.title, theme.version);
+
 		return theme;
+	}
+
+	async isVerified(address, title, version) {
+		const id = `theme/${escape(address)}/${escape(title)}/${escape(version)}`;
+		const v = await zeroDB.query(`
+			SELECT * FROM verified WHERE id = :id
+		`, {id});
+
+		if(!v.length) {
+			return 0;
+		}
+		return v.verified;
 	}
 }
 

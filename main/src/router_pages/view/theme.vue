@@ -11,8 +11,16 @@
 					<zms-small-button icon="file-archive" text="Download as ZIP" @click="downloadAsZip()" />
 				</div>
 
-				<div class="verified not-verified">
-					UNVERIFIED
+				<div :class="['verified', ['unverified', 'not-yet-verified', ''][theme.verified + 1]]">
+					<template v-if="theme.verified == 1">
+						VERIFIED
+					</template>
+					<template v-else-if="theme.verified == -1">
+						DANGEROUS
+					</template>
+					<template v-else>
+						NOT YET VERIFIED
+					</template>
 				</div>
 			</div>
 
@@ -52,7 +60,9 @@
 		border-radius: 4px
 		box-shadow: 0 4px 4px #CCC
 
-	.not-verified
+	.not-yet-verified
+		background-color: #880
+	.unverified
 		background-color: #800
 </style>
 
@@ -77,7 +87,8 @@
 					title: "",
 					screenshot: "",
 					zip: "",
-					cert_user_id: ""
+					cert_user_id: "",
+					verified: 1
 				}
 			}
 		},
