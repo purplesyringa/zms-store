@@ -8,6 +8,7 @@
 				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" ref="file" />
 				<zms-file-input placeholder="Screenshot" :error="screenshotError" v-model="screenshot" ref="screenshot" />
 				<zms-small-button icon="share-square" text="Upload" @click="upload" />
+				<span class="error">{{error}}</span>
 			</div>
 			<div>
 				First, make a theme via the instructions in <a @click="$router.navigate('dev/theme')">How to make a theme</a> section. Give your theme a name. Then pack your theme to ZIP archive and upload it.<br>
@@ -31,6 +32,7 @@
 
 <script type="text/javascript">
 	import "vue-awesome/icons/share-square";
+	import Themes from "../../libs/themes.js";
 
 	export default {
 		name: "upload-theme",
@@ -40,12 +42,13 @@
 				file: null,
 				fileError: "",
 				screenshot: null,
-				screenshotError: ""
+				screenshotError: "",
+				error: ""
 			};
 		},
 
 		methods: {
-			upload() {
+			async upload() {
 				let error = false;
 				if(!this.title || this.title === "Please fill in title") {
 					this.title = "Please fill in title";
@@ -69,6 +72,12 @@
 				}
 				if(error) {
 					return;
+				}
+
+				try {
+					await Themes.publish(this.title, this.file, this.screenshot);
+				} catch(e) {
+					this.error = e.message;
 				}
 			}
 		}
