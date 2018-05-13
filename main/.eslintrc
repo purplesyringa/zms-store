@@ -4,6 +4,9 @@
 		"ecmaVersion": 8,
 		"sourceType": "module"
 	},
+	"rules": {
+		"no-console": "off"
+	},
 	"env": {
 		"browser": true,
 		"commonjs": true,
