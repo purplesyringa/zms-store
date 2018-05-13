@@ -1,5 +1,11 @@
-import {zeroAuth, zeroDB, zeroFS, zeroPage} from "../route.js";
 import {readAsArrayBuffer} from "./util.js";
+
+/// #if extern
+export default ({zeroAuth, zeroDB, zeroFS, zeroPage}) => {
+/// #else
+import {zeroAuth, zeroDB, zeroFS, zeroPage} from "../route.js";
+/// #endif
+
 
 class Themes {
 	async getSelfThemeList() {
@@ -109,4 +115,10 @@ class Themes {
 	}
 }
 
+
+/// #if extern
+return new Themes();
+};
+/// #else
 export default new Themes();
+/// #endif
