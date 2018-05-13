@@ -48,7 +48,8 @@ module.exports = {
 										globals: ["Error", "Array"]
 									}
 								],
-								"transform-class-properties"
+								"transform-class-properties",
+								"transform-async-generator-functions"
 							]
 						}
 					}
