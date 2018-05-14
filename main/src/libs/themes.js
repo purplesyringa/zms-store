@@ -20,6 +20,7 @@ class Themes {
 		});
 		for(let theme of themes) {
 			theme.verified = await this.isVerified(auth.address, theme.title, theme.version);
+			theme.url = `view/theme/${auth.address}/${escape(theme.title)}`;
 		}
 		return themes;
 	}
@@ -31,6 +32,7 @@ class Themes {
 		`);
 		for(let theme of themes) {
 			theme.verified = await this.isVerified(theme.directory.replace("users/", ""), theme.title, theme.version);
+			theme.url = `view/theme/${theme.directory.replace("users/", "")}/${escape(theme.title)}`;
 		}
 		return themes;
 	}
@@ -99,6 +101,7 @@ class Themes {
 		theme.screenshot = `data/users/${address}/${theme.screenshot_name}`;
 
 		theme.verified = await this.isVerified(address, theme.title, theme.version);
+		theme.url = `view/theme/${address}/${escape(theme.title)}`;
 
 		return theme;
 	}
