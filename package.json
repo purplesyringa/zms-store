@@ -52,6 +52,7 @@
     "@babel/standalone": "^7.0.0-beta.46",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "ifdef-loader": "^2.0.3",
+    "jszip": "^3.1.5",
     "node-sass": "^4.7.2",
     "sass.js": "^0.10.9",
     "vue": "^2.5.13",
@@ -60,8 +61,7 @@
     "vue-hot-reload-api": "^2.2.4",
     "vueify": "^9.4.1",
     "webpack-bundle-analyzer": "^2.11.2",
-    "zero-dev-lib": "^1.0.0",
-    "zip-js": "^0.0.2"
+    "zero-dev-lib": "^1.0.0"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
