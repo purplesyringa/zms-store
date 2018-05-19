@@ -58,7 +58,7 @@
 					this.fileError = "Please choose ZIP";
 					error = true;
 				}
-				if(this.file && this.file.type !== "application/x-zip-compressed") {
+				if(this.file && this.file.type !== "application/x-zip-compressed" && this.file.type !== "application/zip") {
 					this.$refs.file.$emit("error", "Please choose ZIP archive, not " + (this.file.type || "plain/text"));
 					error = true;
 				}
