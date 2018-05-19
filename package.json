@@ -60,7 +60,8 @@
     "vue-hot-reload-api": "^2.2.4",
     "vueify": "^9.4.1",
     "webpack-bundle-analyzer": "^2.11.2",
-    "zero-dev-lib": "^1.0.0"
+    "zero-dev-lib": "^1.0.0",
+    "zip-js": "^0.0.2"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
