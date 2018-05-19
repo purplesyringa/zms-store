@@ -1,6 +1,9 @@
 import {readAsArrayBuffer} from "./util.js";
 
 /// #if extern
+import "sass.js/dist/sass.sync.js";
+import "@babel/standalone";
+
 export default ({zeroAuth, zeroDB, zeroFS, zeroPage}) => {
 /// #else
 import {zeroAuth, zeroDB, zeroFS, zeroPage} from "../route.js";

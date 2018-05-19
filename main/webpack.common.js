@@ -10,6 +10,9 @@ module.exports = (entry, plugins, defs, library) => {
 			filename: "[name].js",
 			library
 		},
+		node: {
+			fs: "empty"
+		},
 		module: {
 			rules: [
 				{
