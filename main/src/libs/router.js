@@ -24,7 +24,7 @@ module.exports = class Router {
 		this.routes.push(route);
 	}
 	remove(arg) {
-		let index = this.routes.findIndex(route => route.controller == arg || route.path == arg);
+		let index = this.routes.findIndex(route => route.controller === arg || route.path === arg);
 		if(index > -1) {
 			this.routes.splice(index, 1);
 		}
