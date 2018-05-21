@@ -154,9 +154,24 @@ class Themes {
 				continue;
 			}
 
-			// Save file
-			const base64 = await zip.files[name].async("base64");
-			await blogZeroFS.writeFile(`theme/${name}`, base64, true);
+			if(name === "theme.json") {
+				// Remove _... properties
+				let json = await zip.files[name].async("string");
+				json = JSON.parse(json);
+
+				for(const name of Object.keys(json)) {
+					if(name[0] === "_") {
+						delete json[name];
+					}
+				}
+
+				json = JSON.stringify(json, null, "\t");
+				await blogZeroFS.writeFile(`theme/${name}`, json);
+			} else {
+				// Save file
+				const base64 = await zip.files[name].async("base64");
+				await blogZeroFS.writeFile(`theme/${name}`, base64, true);
+			}
 			statusCb("Saved", name);
 		}
 	}
