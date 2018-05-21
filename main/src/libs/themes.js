@@ -180,6 +180,16 @@ class Themes {
 		throw new Error("downloadTheme() is available in extern mode only")
 	}
 /// #endif
+
+/// #if extern
+	async buildTheme(blogZeroFS, statusCb) {
+
+	}
+/// #else
+	async buildTheme() {
+		throw new Error("buildTheme() is available in extern mode only")
+	}
+/// #endif
 }
 
 
