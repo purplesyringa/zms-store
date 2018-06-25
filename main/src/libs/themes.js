@@ -1,11 +1,10 @@
 import {readAsArrayBuffer} from "./util.js";
 
 /// #if extern
-import "sass.js/dist/sass.sync.js";
-import "@babel/standalone";
 import JSZip from "jszip";
+import themeProcessor from "./theme-processor";
 
-export default ({zeroAuth, zeroDB, zeroFS, zeroPage}) => {
+export default ({zeroAuth, zeroDB, zeroFS, zeroPage, blogZeroFS}) => {
 /// #else
 import {zeroAuth, zeroDB, zeroFS, zeroPage} from "../route.js";
 /// #endif
@@ -134,7 +133,7 @@ class Themes {
 
 
 /// #if extern
-	async downloadTheme(theme, blogZeroFS, statusCb=() => {}) {
+	async downloadTheme(theme, statusCb=() => {}) {
 		// Load ZIP
 		const rawZip = await zeroFS.readFile(`data/${theme.directory}/${theme.zip_name}`, "arraybuffer");
 		statusCb("Loaded");
@@ -169,8 +168,8 @@ class Themes {
 				await blogZeroFS.writeFile(`theme/${name}`, json);
 			} else {
 				// Save file
-				const base64 = await zip.files[name].async("base64");
-				await blogZeroFS.writeFile(`theme/${name}`, base64, true);
+				const buf = await zip.files[name].async("uint8array");
+				await blogZeroFS.writeFile(`theme/${name}`, buf, "arraybuffer");
 			}
 			statusCb("Saved", name);
 		}
@@ -182,12 +181,25 @@ class Themes {
 /// #endif
 
 /// #if extern
-	async buildTheme(blogZeroFS, statusCb) {
-
+	async buildTheme(statusCb) {
+		return await themeProcessor(zeroPage, blogZeroFS, statusCb);
 	}
 /// #else
 	async buildTheme() {
 		throw new Error("buildTheme() is available in extern mode only")
+	}
+/// #endif
+
+/// #if extern
+	async saveTheme(files, statusCb) {
+		for(let file of Object.keys(files)) {
+			statusCb(`Saving ${file}`);
+			await blogZeroFS.writeFile(`theme/__build/${file}`, files[file]);
+		}
+	}
+/// #else
+	async saveTheme() {
+		throw new Error("saveTheme() is available in extern mode only")
 	}
 /// #endif
 }
