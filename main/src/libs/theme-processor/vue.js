@@ -20,10 +20,14 @@ export async function transformVue(path, code) {
 	}
 
 	return `
-		${transformJs(path, component.script.content)}
+		// Don't remove lambda: it's going to break with()
+		// statement by enabling strict mode
+		(function() {
+			${transformJs(path, component.script.content)}
+		})();
 
 		exports.default.render = function render() {
-			return ${compile(allCss + component.template.content).render};
+			${compile(allCss + component.template.content).render};
 		};
 	`;
 }
