@@ -111,9 +111,8 @@
 			},
 
 			async verify(value) {
-				console.log(value);
 				const {address, title} = this.$router.currentParams;
-				await Themes.verify(address, title, this.theme.version, value);
+				await Themes.verify(address, title, value);
 				this.theme.verified = value;
 			}
 		}

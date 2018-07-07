@@ -22,7 +22,7 @@ class Themes {
 			self_json_id: selfJsonId
 		});
 		for(let theme of themes) {
-			theme.verified = await this.isVerified(auth.address, theme.title, theme.version);
+			theme.verified = await this.isVerified(auth.address, theme.title);
 			theme.url = `view/theme/${auth.address}/${escape(theme.title)}`;
 		}
 		return themes;
@@ -34,7 +34,7 @@ class Themes {
 			LEFT JOIN json ON (theme.json_id = json.json_id)
 		`);
 		for(let theme of themes) {
-			theme.verified = await this.isVerified(theme.directory.replace("users/", ""), theme.title, theme.version);
+			theme.verified = await this.isVerified(theme.directory.replace("users/", ""), theme.title);
 			theme.url = `view/theme/${theme.directory.replace("users/", "")}/${escape(theme.title)}`;
 		}
 		return themes;
@@ -103,17 +103,21 @@ class Themes {
 		theme.zip = `data/users/${address}/${theme.zip_name}`;
 		theme.screenshot = `data/users/${address}/${theme.screenshot_name}`;
 
-		theme.verified = await this.isVerified(address, theme.title, theme.version);
+		theme.verified = await this.isVerified(address, theme.title);
 		theme.url = `view/theme/${address}/${escape(theme.title)}`;
 
 		return theme;
 	}
 
-	async isVerified(address, title, version) {
-		const id = `theme/${escape(address)}/${escape(title)}/${escape(version)}`;
+	async isVerified(address, title) {
+		const contentJson = JSON.parse(await zeroFS.readFile(`data/users/${address}/content.json`));
+		const sha512 = contentJson.files[`${escape(title)}.zip`].sha512;
+
 		const v = await zeroDB.query(`
 			SELECT * FROM verified WHERE id = :id
-		`, {id});
+		`, {
+			id: sha512
+		});
 
 		if(!v.length) {
 			return 0;
@@ -121,13 +125,15 @@ class Themes {
 		return v[0].verified;
 	}
 
-	async verify(address, title, version, value) {
-		const id = `theme/${escape(address)}/${escape(title)}/${escape(version)}`;
+	async verify(address, title, value) {
+		const contentJson = JSON.parse(await zeroFS.readFile(`data/users/${address}/content.json`));
+		const sha512 = contentJson.files[`${escape(title)}.zip`].sha512;
+
 		await zeroDB.changePair(
 			`data/verified/content.json`,
 			`data/verified/content.json`,
 			"verified",
-			id, value
+			sha512, value
 		);
 	}
 
