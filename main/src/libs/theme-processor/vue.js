@@ -1,6 +1,7 @@
 import {compile, parseComponent} from "vue-template-compiler/browser";
 import {transformSass, transformScss} from "./sass";
 import {transformJs} from "./js";
+import scopeCss from "./scope-css";
 
 export async function transformVue(path, code) {
 	const component = parseComponent(code);
@@ -15,6 +16,10 @@ export async function transformVue(path, code) {
 			css = await transformScss(path + "._.scss", css);
 		} else if(style.attrs.lang !== "css") {
 			throw new Error(`Unknown style language ${style.attrs.lang}`);
+		}
+
+		if(style.attrs.scoped) {
+			css = await scopeCss(path, css, scopeId);
 		}
 
 		allCss.push([
