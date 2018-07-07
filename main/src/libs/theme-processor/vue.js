@@ -5,7 +5,7 @@ import {transformJs} from "./js";
 export async function transformVue(path, code) {
 	const component = parseComponent(code);
 
-	let allCss = "";
+	//let allCss = "";
 	for(let style of component.styles) {
 		let css = style.content;
 		if(style.attrs.lang === "sass") {
@@ -16,18 +16,35 @@ export async function transformVue(path, code) {
 			throw new Error(`Unknown style language ${style.attrs.lang}`);
 		}
 
-		allCss += `<zms-theme-style ${style.attrs.scoped ? "scoped" : ""}>${css}</zms-theme-style>`;
+		//allCss += `<zms-theme-style ${style.attrs.scoped ? "scoped" : ""}>${css}</zms-theme-style>`;
 	}
 
+	const compilerOptions = {
+		scopeId: "data-v-" + Math.random().toString(16).substr(2)
+	};
+	const compiled = compile(component.template.content, compilerOptions);
+
 	return `
+		var mExports = {};
+		var mModule = {exports: mExports};
+
 		// Don't remove lambda: it's going to break with()
 		// statement by enabling strict mode
-		(function() {
+		(function(module, exports) {
 			${transformJs(path, component.script.content)}
-		})();
+		})(mModule, mExports);
 
-		exports.default.render = function render() {
-			${compile(allCss + component.template.content).render};
+		exports.default.mExports = mExports;
+		exports.default.render = function() {
+			${compiled.render};
 		};
+		exports.default.staticRenderFns = [${
+			compiled.staticRenderFns.map(f => `
+				function() {
+					${f}
+				}
+			`).join(",")
+		}];
+		exports.default.options = ${JSON.stringify(compilerOptions)};
 	`;
 }
