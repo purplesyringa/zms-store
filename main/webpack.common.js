@@ -63,7 +63,7 @@ module.exports = (entry, plugins, defs, library) => {
 							options: defs
 						}
 					],
-					exclude: /node_modules/
+					exclude: /node_modules|sass-compiler[\/\\].*\.exclude\.js$/
 				},
 				{
 					test: /\.js$/,
