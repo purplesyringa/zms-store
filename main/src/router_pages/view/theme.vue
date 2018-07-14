@@ -3,9 +3,6 @@
 		<zms-small-header />
 
 		<zms-slide header="Themes">
-			<h2>{{theme.title}} <i>by {{theme.cert_user_id}}</i></h2>
-			<div>To install a theme, open <b>Store</b> tab in your blog's admin panel</div>
-
 			<div class="icons">
 				<div>
 					<zms-small-button icon="file-archive" text="Download as ZIP" @click="downloadAsZip()" />
@@ -28,6 +25,9 @@
 				</div>
 			</div>
 
+			<h2>{{theme.title}} <i>by {{theme.cert_user_id}}</i></h2>
+			<div class="desc">To install a theme, open <b>Store</b> tab in your blog's admin panel</div>
+
 			<img :src="theme.screenshot">
 		</zms-slide>
 	</div>
@@ -43,10 +43,12 @@
 		font-weight: normal
 		color: #444
 
+	.desc
+		margin-bottom: 16px
+
 
 	.icons
 		float: right
-		margin-top: -58px
 		margin-bottom: 32px
 	.icons > *
 		display: inline-block
