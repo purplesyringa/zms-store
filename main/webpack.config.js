@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -71,7 +72,9 @@ module.exports = [
 		[
 			new BundleAnalyzerPlugin({
 				analyzerPort: 9275
-			})
+			}),
+
+			new UglifyJSPlugin()
 		],
 		{
 			extern: true
