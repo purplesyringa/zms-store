@@ -1,5 +1,22 @@
 const path = require("path");
 
+const BABEL = {
+	loader: "babel-loader",
+	options: {
+		presets: ["env", "stage-0"],
+		plugins: [
+			"syntax-decorators",
+			"transform-decorators-legacy",
+			[
+				"babel-plugin-transform-builtin-extend", {
+					globals: ["Error", "Array"]
+				}
+			],
+			"transform-class-properties"
+		]
+	}
+};
+
 module.exports = (entry, plugins, defs, library) => {
 	return {
 		context: path.resolve(__dirname, "./src"),
@@ -22,6 +39,7 @@ module.exports = (entry, plugins, defs, library) => {
 						loaders: {
 							scss: "vue-style-loader!css-loader!sass-loader",
 							sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax",
+							js: BABEL
 						}
 					}
 				},
@@ -36,21 +54,7 @@ module.exports = (entry, plugins, defs, library) => {
 				{
 					test: /\.js$/,
 					use: [
-						{
-							loader: "babel-loader",
-							options: {
-								presets: ["env"],
-								plugins: [
-									[
-										"babel-plugin-transform-builtin-extend", {
-											globals: ["Error", "Array"]
-										}
-									],
-									"transform-class-properties",
-									"transform-async-generator-functions"
-								]
-							}
-						},
+						BABEL,
 						{
 							loader: "eslint-loader"
 						},
@@ -60,6 +64,13 @@ module.exports = (entry, plugins, defs, library) => {
 						}
 					],
 					exclude: /node_modules/
+				},
+				{
+					test: /\.js$/,
+					use: [
+						BABEL
+					],
+					include: /zero-dev-lib|vue-loader/
 				},
 				{
 					test: /\.(gif|jpe?g|png)$/,
