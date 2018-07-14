@@ -56,7 +56,7 @@ export default async function(zeroPage, blogZeroFS, statusCb) {
 		} else if(ext === "scss") {
 			result = transformCss(`theme/${file}`, await transformScss(`theme/${file}`, code));
 		} else if(ext === "json") {
-			result = `module.exports = (${code});`;
+			result = code;
 		} else {
 			throw new Error(`Unknown extension ${ext}`);
 		}
