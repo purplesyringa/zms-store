@@ -67,6 +67,11 @@ module.exports = (entry, plugins, defs, library) => {
 				},
 				{
 					test: /\.js$/,
+					loader: "raw-loader",
+					include: /sass-compiler[\/\\].*\.raw\.exclude\.js$/
+				},
+				{
+					test: /\.js$/,
 					use: [
 						BABEL
 					],
