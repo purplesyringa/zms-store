@@ -1,5 +1,3 @@
-//import Vue from "vue/dist/vue.min.js";
-
 import {zeroPage} from "../../route";
 import {transformJs} from "./js";
 import {transformSass, transformScss, preload} from "./sass";
