@@ -74,7 +74,7 @@ module.exports = [
 				analyzerPort: 9275
 			}),
 
-			new UglifyJSPlugin()
+			// new UglifyJSPlugin()
 		],
 		{
 			extern: true
