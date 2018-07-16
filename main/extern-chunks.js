@@ -18,7 +18,7 @@ module.exports = [
 	{c1                          : /[\/\\]c1\.raw\.exclude/},
 	{c2                          : /[\/\\]c2\.raw\.exclude/},
 	{module                      : /[\/\\]module\.raw\.exclude/},
-	{sass                        : /[\/\\]sass\.raw\.exclude/},
+	{sass                        : /[\/\\]sass\.exclude/},
 	{"vue-loader"                : /vue-loader/},
 	{postcss1                    : /postcss[\/\\]lib[\/\\](container|node|parser|lazy-result|tokenize|map-generator)/},
 	{postcss2                    : /postcss/},
