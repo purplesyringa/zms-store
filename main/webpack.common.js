@@ -17,12 +17,12 @@ const BABEL = {
 	}
 };
 
-module.exports = (entry, plugins, defs, library) => {
+module.exports = (entry, plugins, defs, library, outputPath) => {
 	return {
 		context: path.resolve(__dirname, "./src"),
 		entry,
 		output: {
-			path: path.resolve(__dirname, "./dist"),
+			path: outputPath,
 			publicPath: "./",
 			filename: "[name].js",
 			library
