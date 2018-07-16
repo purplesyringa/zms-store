@@ -97,7 +97,17 @@ module.exports = [
 				analyzerPort: 9275
 			}),
 
-			new UglifyJSPlugin()
+			new UglifyJSPlugin(),
+
+			new CopyWebpackPlugin([
+				{
+					from: path.resolve("./extern-chunks.js"),
+					to: "./chunks.js",
+					transform: (content, path) => {
+						return Buffer.from(content.toString("utf8").replace("module.exports = ", ""));
+					}
+				}
+			])
 		].concat(chunkPlugins),
 		{
 			extern: true
