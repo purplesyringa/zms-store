@@ -93,6 +93,21 @@ module.exports = [
 			[externChunks[0].chunk]: ["./extern.js"]
 		},
 		[
+			// For @babel/standalone
+			new webpack.DefinePlugin({
+				"process.env.NODE_ENV": '"production"',
+				BABEL_VERSION: JSON.stringify(require("@babel/core/package.json").version),
+				VERSION: JSON.stringify(require("@babel/standalone/package.json").version)
+			}),
+			new webpack.NormalModuleReplacementPlugin(
+				/debug\/node/,
+				"debug/src/browser"
+			),
+			new webpack.NormalModuleReplacementPlugin(
+				/..\/..\/package/,
+				"../../../../src/babel-package-shim"
+			),
+
 			new BundleAnalyzerPlugin({
 				analyzerPort: 9275
 			}),

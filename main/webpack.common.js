@@ -12,7 +12,8 @@ const BABEL = {
 					globals: ["Error", "Array"]
 				}
 			],
-			"transform-class-properties"
+			"transform-class-properties",
+			"transform-object-rest-spread"
 		]
 	}
 };
@@ -28,7 +29,9 @@ module.exports = (entry, plugins, defs, library, outputPath) => {
 			library
 		},
 		node: {
-			fs: "empty"
+			fs: "empty",
+			module: "empty",
+			net: "empty"
 		},
 		module: {
 			rules: [
@@ -75,7 +78,7 @@ module.exports = (entry, plugins, defs, library, outputPath) => {
 					use: [
 						BABEL
 					],
-					include: /zero-dev-lib|vue-loader/
+					include: /zero-dev-lib|vue-loader|@babel/
 				},
 				{
 					test: /\.(gif|jpe?g|png)$/,
