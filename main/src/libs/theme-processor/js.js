@@ -1,4 +1,4 @@
-import {transform} from "@babel/standalone";
+import {transform} from "@babel/standalone/src";
 
 export function transformJs(path, code) {
 	return transform(code, {

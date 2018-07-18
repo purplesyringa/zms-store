@@ -1,4 +1,4 @@
-import Sass from "sass.js/dist/sass.sync.js";
+import Sass from "./sass-compiler";
 
 function process(lang, path, code) {
 	// First, remove empty lines

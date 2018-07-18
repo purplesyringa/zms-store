@@ -1,17 +1,37 @@
 const path = require("path");
 
-module.exports = (entry, plugins, defs, library) => {
+const BABEL = {
+	loader: "babel-loader",
+	options: {
+		presets: ["env", "stage-0"],
+		plugins: [
+			"syntax-decorators",
+			"transform-decorators-legacy",
+			[
+				"babel-plugin-transform-builtin-extend", {
+					globals: ["Error", "Array"]
+				}
+			],
+			"transform-class-properties",
+			"transform-object-rest-spread"
+		]
+	}
+};
+
+module.exports = (entry, plugins, defs, library, outputPath) => {
 	return {
 		context: path.resolve(__dirname, "./src"),
 		entry,
 		output: {
-			path: path.resolve(__dirname, "./dist"),
+			path: outputPath,
 			publicPath: "./",
 			filename: "[name].js",
 			library
 		},
 		node: {
-			fs: "empty"
+			fs: "empty",
+			module: "empty",
+			net: "empty"
 		},
 		module: {
 			rules: [
@@ -22,6 +42,7 @@ module.exports = (entry, plugins, defs, library) => {
 						loaders: {
 							scss: "vue-style-loader!css-loader!sass-loader",
 							sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax",
+							js: BABEL
 						}
 					}
 				},
@@ -36,21 +57,7 @@ module.exports = (entry, plugins, defs, library) => {
 				{
 					test: /\.js$/,
 					use: [
-						{
-							loader: "babel-loader",
-							options: {
-								presets: ["env"],
-								plugins: [
-									[
-										"babel-plugin-transform-builtin-extend", {
-											globals: ["Error", "Array"]
-										}
-									],
-									"transform-class-properties",
-									"transform-async-generator-functions"
-								]
-							}
-						},
+						BABEL,
 						{
 							loader: "eslint-loader"
 						},
@@ -59,7 +66,19 @@ module.exports = (entry, plugins, defs, library) => {
 							options: defs
 						}
 					],
-					exclude: /node_modules/
+					exclude: /node_modules|sass-compiler[\/\\].*\.exclude\.js$/
+				},
+				{
+					test: /\.js$/,
+					loader: "raw-loader",
+					include: /sass-compiler[\/\\].*\.raw\.exclude\.js$/
+				},
+				{
+					test: /\.js$/,
+					use: [
+						BABEL
+					],
+					include: /zero-dev-lib|vue-loader|@babel/
 				},
 				{
 					test: /\.(gif|jpe?g|png)$/,
