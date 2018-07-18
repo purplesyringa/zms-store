@@ -27,9 +27,12 @@ module.exports = [
 	{parser                      : /@babel[\/\\]parser/},
 	{chg                         : /@babel[\/\\](core|helpers|generator)/},
 	{transform                   : /@babel[\/\\]plugin-transform-/},
+	{blontypes                   : /babylon|babel-types/},
+	{babelat                     : /@babel/},
 	{babel                       : /babel/},
 
 	{binaryproperty              : /Binary_Property/},
 	{regunicodeprop              : /regenerate-unicode-properties/},
 	{reuclesusvccgrgt            : /regexpu-core|lodash|esutils|semver|color-convert|globals|regenerator-transform/},
+	{crypto                      : /crypto|sha|elliptic|bn|rand|pbkdf|des|aes|ecies|hash|diffie-hellman|esc|md5|asn|ripemd|hmac|token|rsa/}
 ];
