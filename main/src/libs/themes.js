@@ -3,6 +3,8 @@ import {readAsArrayBuffer} from "./util.js";
 /// #if extern
 import JSZip from "jszip";
 import themeProcessor from "./theme-processor";
+import crypto from "crypto";
+import {Buffer} from "buffer";
 
 export default ({zeroAuth, zeroDB, zeroFS, zeroPage, blogZeroFS}) => {
 /// #else
@@ -188,7 +190,17 @@ class Themes {
 
 /// #if extern
 	async buildTheme(statusCb) {
-		return await themeProcessor(zeroPage, blogZeroFS, statusCb);
+		let files = await themeProcessor(zeroPage, blogZeroFS, statusCb);
+		let themeJson = JSON.parse(files["theme.json"] || "{}");
+
+		themeJson._hashes = {};
+		for(const fileName of Object.keys(files)) {
+			const original = await blogZeroFS.readFile(`theme/${fileName}`, "arraybuffer");
+			themeJson._hashes[fileName] = crypto.createHash("md5").update(Buffer.from(original)).digest("hex");
+		}
+
+		files["theme.json"] = JSON.stringify(themeJson, null, "\t");
+		return files;
 	}
 /// #else
 	async buildTheme() {
