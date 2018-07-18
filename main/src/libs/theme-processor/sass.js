@@ -24,7 +24,7 @@ function process(lang, path, code) {
 					return reject(new Error(result.formatted));
 				}
 
-				resolve(result.text);
+				resolve(result.text || "");
 			});
 		});
 	});

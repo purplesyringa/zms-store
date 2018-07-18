@@ -2,7 +2,7 @@ import {readAsArrayBuffer} from "./util.js";
 
 /// #if extern
 import JSZip from "jszip";
-import themeProcessor from "./theme-processor";
+import themeProcessor, {rebuildFile} from "./theme-processor";
 import crypto from "crypto";
 import {Buffer} from "buffer";
 
@@ -190,7 +190,7 @@ class Themes {
 
 /// #if extern
 	async buildTheme(statusCb) {
-		let files = await themeProcessor(zeroPage, blogZeroFS, statusCb);
+		let {compiled: files, dependents} = await themeProcessor(zeroPage, blogZeroFS, statusCb);
 		let themeJson = JSON.parse(files["theme.json"] || "{}");
 
 		themeJson._hashes = {};
@@ -199,12 +199,24 @@ class Themes {
 			themeJson._hashes[fileName] = crypto.createHash("md5").update(Buffer.from(original)).digest("hex");
 		}
 
+		themeJson._dependents = dependents;
+
 		files["theme.json"] = JSON.stringify(themeJson, null, "\t");
 		return files;
 	}
 /// #else
 	async buildTheme() {
 		throw new Error("buildTheme() is available in extern mode only")
+	}
+/// #endif
+
+/// #if extern
+	async rebuildThemeFile(fileName) {
+		return await rebuildFile(fileName, zeroPage, blogZeroFS);
+	}
+/// #else
+	async rebuildThemeFile() {
+		throw new Error("rebuildThemeFile() is available in extern mode only")
 	}
 /// #endif
 
