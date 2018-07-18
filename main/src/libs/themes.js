@@ -190,7 +190,7 @@ class Themes {
 
 /// #if extern
 	async buildTheme(statusCb) {
-		let {compiled: files, dependents} = await themeProcessor(zeroPage, blogZeroFS, statusCb);
+		let {compiled: files, dependents} = await themeProcessor(blogZeroFS, statusCb);
 		let themeJson = JSON.parse(files["theme.json"] || "{}");
 
 		themeJson._hashes = {};
@@ -212,7 +212,7 @@ class Themes {
 
 /// #if extern
 	async rebuildThemeFile(fileName) {
-		return await rebuildFile(fileName, zeroPage, blogZeroFS);
+		return await rebuildFile(fileName, blogZeroFS);
 	}
 /// #else
 	async rebuildThemeFile() {

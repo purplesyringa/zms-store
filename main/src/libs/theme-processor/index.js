@@ -1,27 +1,11 @@
-import {zeroPage} from "../../route";
 import {transformJs} from "./js";
 import {transformSass, transformScss, preload} from "./sass";
 import {transformCss} from "./css";
 import {transformVue} from "./vue";
 import Sass from "./sass-compiler";
 
-let patched = false;
 
-async function patch() {
-	const realOpen = XMLHttpRequest.prototype.open;
-	const key = await zeroPage.cmd("wrapperGetAjaxKey");
-	XMLHttpRequest.prototype.open = function(method, url, async) {
-		return realOpen.call(this, method, `${url}?ajax_key=${key}`, async);
-	};
-}
-
-
-export default async function(zeroPage, blogZeroFS, statusCb) {
-	if(!patched) {
-		patch();
-		patched = true;
-	}
-
+export default async function(blogZeroFS, statusCb) {
 	let dependents = {};
 	Sass.importer((request, done) => {
 		let prev = request.previous.replace(/\._\.s[ac]ss$/, "").replace("/sass/theme/", "");
@@ -82,13 +66,7 @@ export default async function(zeroPage, blogZeroFS, statusCb) {
 }
 
 
-export async function rebuildFile(file, zeroPage, blogZeroFS) {
-	if(!patched) {
-		patch();
-		patched = true;
-	}
-
-
+export async function rebuildFile(file, blogZeroFS) {
 	let dependents = {};
 	Sass.importer((request, done) => {
 		let prev = request.previous.replace(/\._\.s[ac]ss$/, "").replace("/sass/theme/", "");
