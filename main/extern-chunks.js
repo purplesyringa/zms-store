@@ -16,15 +16,20 @@ module.exports = [
 	{e1                          : /[\/\\]e1\.raw\.exclude/},
 	{c                           : /[\/\\]c\.raw\.exclude/},
 	{c1                          : /[\/\\]c1\.raw\.exclude/},
-	{c2                          : /[\/\\]c2\.raw\.exclude/},
+	{c2sass                      : /[\/\\](c2\.raw|sass)\.exclude/},
 	{module                      : /[\/\\]module\.raw\.exclude/},
-	{sass                        : /[\/\\]sass\.exclude/},
-	{"vue-loader"                : /vue-loader/},
-	{postcss1                    : /postcss[\/\\]lib[\/\\](container|node|parser|lazy-result|tokenize|map-generator)/},
-	{postcss2                    : /postcss/},
-	{pako                        : /pako/},
-	{"vue-template-compiler"     : /vue-template-compiler/},
-	{jszip                       : /jszip/},
+
+	{vlpostcss                   : /vue-loader|postcss/},
+	{jszippakovtc                : /jszip|pako|vue-template-compiler/},
+	{smzdl                       : /source-map|vue|zero-dev-lib/},
+
+	{types                       : /@babel[\/\\]types/},
+	{parser                      : /@babel[\/\\]parser/},
+	{chg                         : /@babel[\/\\](core|helpers|generator)/},
+	{transform                   : /@babel[\/\\]plugin-transform-/},
 	{babel                       : /babel/},
-	{smzdl                       : /source-map|vue|zero-dev-lib/}
+
+	{binaryproperty              : /Binary_Property/},
+	{regunicodeprop              : /regenerate-unicode-properties/},
+	{reuclesusvccgrgt            : /regexpu-core|lodash|esutils|semver|color-convert|globals|regenerator-transform/},
 ];
