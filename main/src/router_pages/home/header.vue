@@ -3,6 +3,7 @@
 		<div class="buttons">
 			<zms-button icon="brands/github" text="Source Code" @click="go('https://github.com/imachug/zms')" />
 			<zms-button icon="comment-alt" text="Create a blog" />
+			<zms-button icon="upload" text="Upload theme/plugin" @click="$router.navigate('upload')" />
 		</div>
 
 		<h1>ZMS</h1>
@@ -41,6 +42,7 @@
 <script type="text/javascript">
 	import "vue-awesome/icons/brands/github";
 	import "vue-awesome/icons/comment-alt";
+	import "vue-awesome/icons/upload";
 
 	export default {
 		name: "zms-header",

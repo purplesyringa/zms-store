@@ -11,7 +11,7 @@
 
 	.btn
 		display: block
-		width: 350px
+		width: 450px
 		margin: 0 30px
 		margin-top: 32px
 		padding: 25px 60px 25px 120px
@@ -46,7 +46,7 @@
 		position: absolute
 		left: 5%
 		top: 25%
-		width: 40%
+		width: 20%
 		height: 50%
 		color: rgba(0, 0, 0, 0.2)
 
