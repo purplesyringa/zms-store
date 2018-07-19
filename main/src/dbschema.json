@@ -12,6 +12,10 @@
 				{
 					"table": "theme",
 					"key_col": "title"
+				},
+				{
+					"table": "plugin",
+					"key_col": "title"
 				}
 			]
 		},

@@ -8,6 +8,7 @@
 				<textarea placeholder="This plugin will make your blog awesome by doing many awesome things!" v-model="description" :class="{error: description === 'Please fill in description'}"></textarea>
 				<zms-file-input placeholder="ZIP archive" :error="fileError" v-model="file" ref="file" />
 				<zms-small-button icon="share-square" text="Upload" @click="upload" />
+				<span class="error">{{error}}</span>
 			</div>
 			<div>
 				First, make a plugin via the instructions in <a @click="$router.navigate('dev/plugin')">How to make a plugin</a> section. Give your plugin a name and enter a description. Then pack your plugin to ZIP archive and upload it.<br>
@@ -31,6 +32,7 @@
 
 <script type="text/javascript">
 	import "vue-awesome/icons/share-square";
+	import Plugins from "../../libs/plugins.js";
 
 	export default {
 		name: "upload-plugin",
@@ -44,7 +46,7 @@
 		},
 
 		methods: {
-			upload() {
+			async upload() {
 				let error = false;
 				if(!this.title || this.title === "Please fill in title") {
 					this.title = "Please fill in title";
@@ -66,7 +68,12 @@
 					return;
 				}
 
-				console.log(this.title, this.description, this.file);
+				try {
+					const id = await Plugins.publish(this.title, this.description, this.file);
+					this.$router.navigate(`view/plugin/${id}`);
+				} catch(e) {
+					this.error = e.message;
+				}
 			}
 		}
 	};
