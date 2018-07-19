@@ -5,11 +5,11 @@ import {transformVue} from "./vue";
 import Sass from "./sass-compiler";
 
 
-export default async function(blogZeroFS, statusCb) {
+export default async function(prefix, blogZeroFS, statusCb) {
 	let dependents = {};
 	Sass.importer((request, done) => {
-		let prev = request.previous.replace(/\._\.s[ac]ss$/, "").replace("/sass/theme/", "");
-		let next = request.resolved.replace(/\._\.s[ac]ss$/, "").replace("/sass/theme/", "");
+		let prev = request.previous.replace(/\._\.s[ac]ss$/, "").replace(`/sass/${prefix}`, "");
+		let next = request.resolved.replace(/\._\.s[ac]ss$/, "").replace(`/sass/${prefix}`, "");
 
 		console.log("Found dependency", prev, "->", next);
 
@@ -40,19 +40,19 @@ export default async function(blogZeroFS, statusCb) {
 		statusCb(`Compiling ${file}`);
 
 		const ext = file.split("/").slice(-1)[0].split(".").slice(-1)[0] || "";
-		const code = await blogZeroFS.readFile(`theme/${file}`);
+		const code = await blogZeroFS.readFile(`${prefix}${file}`);
 
 		let result;
 		if(ext === "vue") {
-			result = await transformVue(`theme/${file}`, code);
+			result = await transformVue(`${prefix}${file}`, code);
 		} else if(ext === "js") {
-			result = transformJs(`theme/${file}`, code);
+			result = transformJs(`${prefix}${file}`, code);
 		} else if(ext === "css") {
-			result = transformCss(`theme/${file}`, code);
+			result = transformCss(`${prefix}${file}`, code);
 		} else if(ext === "sass") {
-			result = transformCss(`theme/${file}`, await transformSass(`theme/${file}`, code));
+			result = transformCss(`${prefix}${file}`, await transformSass(`${prefix}${file}`, code));
 		} else if(ext === "scss") {
-			result = transformCss(`theme/${file}`, await transformScss(`theme/${file}`, code));
+			result = transformCss(`${prefix}${file}`, await transformScss(`${prefix}${file}`, code));
 		} else if(ext === "json") {
 			result = code;
 		} else {
@@ -66,11 +66,11 @@ export default async function(blogZeroFS, statusCb) {
 }
 
 
-export async function rebuildFile(file, blogZeroFS) {
+export async function rebuildFile(prefix, file, blogZeroFS) {
 	let dependents = {};
 	Sass.importer((request, done) => {
-		let prev = request.previous.replace(/\._\.s[ac]ss$/, "").replace("/sass/theme/", "");
-		let next = request.resolved.replace(/\._\.s[ac]ss$/, "").replace("/sass/theme/", "");
+		let prev = request.previous.replace(/\._\.s[ac]ss$/, "").replace(`/sass/${prefix}`, "");
+		let next = request.resolved.replace(/\._\.s[ac]ss$/, "").replace(`/sass/${prefix}`, "");
 
 		console.log("Found dependency", prev, "->", next);
 
@@ -93,19 +93,19 @@ export async function rebuildFile(file, blogZeroFS) {
 
 
 	const ext = file.split("/").slice(-1)[0].split(".").slice(-1)[0] || "";
-	const code = await blogZeroFS.readFile(`theme/${file}`);
+	const code = await blogZeroFS.readFile(`${prefix}${file}`);
 
 	let result;
 	if(ext === "vue") {
-		result = await transformVue(`theme/${file}`, code);
+		result = await transformVue(`${prefix}${file}`, code);
 	} else if(ext === "js") {
-		result = transformJs(`theme/${file}`, code);
+		result = transformJs(`${prefix}${file}`, code);
 	} else if(ext === "css") {
-		result = transformCss(`theme/${file}`, code);
+		result = transformCss(`${prefix}${file}`, code);
 	} else if(ext === "sass") {
-		result = transformCss(`theme/${file}`, await transformSass(`theme/${file}`, code));
+		result = transformCss(`${prefix}${file}`, await transformSass(`${prefix}${file}`, code));
 	} else if(ext === "scss") {
-		result = transformCss(`theme/${file}`, await transformScss(`theme/${file}`, code));
+		result = transformCss(`${prefix}${file}`, await transformScss(`${prefix}${file}`, code));
 	} else if(ext === "json") {
 		result = code;
 	} else {
