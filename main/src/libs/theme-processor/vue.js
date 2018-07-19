@@ -43,9 +43,11 @@ export async function transformVue(path, code) {
 		})(mModule, mExports);
 
 		exports.default.mExports = mExports;
-		exports.default.render = function() {
-			${compiled.render};
-		};
+		${transformJs(path, `
+			exports.default.render = function() {
+				${compiled.render};
+			};
+		`)}
 		exports.default.staticRenderFns = [${
 			compiled.staticRenderFns.map(f => `
 				function() {

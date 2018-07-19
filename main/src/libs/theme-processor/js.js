@@ -11,6 +11,9 @@ export function transformJs(path, code) {
 			],
 			require("babel-plugin-transform-class-properties"),
 			require("babel-plugin-transform-object-rest-spread")
-		]
+		],
+		parserOpts: {
+			strictMode: false
+		}
 	}).code;
 }
