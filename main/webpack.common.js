@@ -78,7 +78,7 @@ module.exports = (entry, plugins, defs, library, outputPath) => {
 					use: [
 						BABEL
 					],
-					include: /zero-dev-lib|vue-loader|@babel/
+					include: /zero-dev-lib|vue-loader|@babel|http-vue-loader|zero-dev-lib|workerout|unicode|vue-template-es2015-compiler|jsesc|regexpu-core/
 				},
 				{
 					test: /\.(gif|jpe?g|png)$/,
