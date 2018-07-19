@@ -21,7 +21,7 @@ export default async function(prefix, blogZeroFS, statusCb) {
 	});
 
 
-	let allFiles = await blogZeroFS.readDirectory("theme", true);
+	let allFiles = await blogZeroFS.readDirectory(prefix.replace(/\/$/, ""), true);
 	let cssFiles = allFiles.filter(name => {
 		return (
 			name.endsWith(".sass") ||
@@ -30,7 +30,7 @@ export default async function(prefix, blogZeroFS, statusCb) {
 		);
 	});
 	statusCb("Preloading CSS files");
-	await preload(cssFiles);
+	await preload(prefix, cssFiles);
 
 
 
@@ -81,7 +81,7 @@ export async function rebuildFile(prefix, file, blogZeroFS) {
 		done();
 	});
 
-	let allFiles = await blogZeroFS.readDirectory("theme", true);
+	let allFiles = await blogZeroFS.readDirectory(prefix.replace(/\/$/, ""), true);
 	let cssFiles = allFiles.filter(name => {
 		return (
 			name.endsWith(".sass") ||
@@ -89,7 +89,7 @@ export async function rebuildFile(prefix, file, blogZeroFS) {
 			name.endsWith(".css")
 		);
 	});
-	await preload(cssFiles);
+	await preload(prefix, cssFiles);
 
 
 	const ext = file.split("/").slice(-1)[0].split(".").slice(-1)[0] || "";

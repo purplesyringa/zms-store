@@ -31,9 +31,9 @@ function process(lang, path, code) {
 }
 
 // Upload all CSS files to Sass
-export function preload(files) {
+export function preload(prefix, files) {
 	return new Promise(resolve => {
-		Sass.preloadFiles("theme/", "", files, () => {
+		Sass.preloadFiles(prefix, "", files, () => {
 			resolve();
 		});
 	});
