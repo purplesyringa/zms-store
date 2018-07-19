@@ -2,6 +2,7 @@ import Home from "./home/home.vue";
 import Upload from "./upload/upload.vue";
 import UploadPlugin from "./upload/plugin.vue";
 import UploadTheme from "./upload/theme.vue";
+import ViewPlugin from "./view/plugin.vue";
 import ViewTheme from "./view/theme.vue";
 
 export default vue => [
@@ -31,6 +32,12 @@ export default vue => [
 		}
 	},
 
+	{
+		path: "view/plugin/:address/:title",
+		controller: () => {
+			vue.currentView = ViewPlugin;
+		}
+	},
 	{
 		path: "view/theme/:address/:title",
 		controller: () => {
