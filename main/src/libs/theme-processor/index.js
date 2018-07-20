@@ -22,7 +22,12 @@ export default async function(prefix, blogZeroFS, statusCb) {
 
 
 	let allFiles = await blogZeroFS.readDirectory(prefix.replace(/\/$/, ""), true);
-	allFiles = allFiles.filter(name => !name.startsWith("__build/"));
+	allFiles = allFiles.filter(name => {
+		return (
+			!name.startsWith("__build/") &&
+			!name.split("/").some(part => part.startsWith("."))
+		);
+	});
 	let cssFiles = allFiles.filter(name => {
 		return (
 			name.endsWith(".sass") ||
@@ -83,7 +88,12 @@ export async function rebuildFile(prefix, file, blogZeroFS) {
 	});
 
 	let allFiles = await blogZeroFS.readDirectory(prefix.replace(/\/$/, ""), true);
-	allFiles = allFiles.filter(name => !name.startsWith("__build/"));
+	allFiles = allFiles.filter(name => {
+		return (
+			!name.startsWith("__build/") &&
+			!name.split("/").some(part => part.startsWith("."))
+		);
+	});
 	let cssFiles = allFiles.filter(name => {
 		return (
 			name.endsWith(".sass") ||
