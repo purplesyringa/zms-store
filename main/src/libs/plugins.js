@@ -108,6 +108,9 @@ class Plugins {
 
 	async isVerified(address, title) {
 		const contentJson = JSON.parse(await zeroFS.readFile(`data/users/${address}/content.json`));
+		if(!contentJson.files[`${escape(title)}.zip`]) {
+			return 0;
+		}
 		const sha512 = contentJson.files[`${escape(title)}.zip`].sha512;
 
 		const v = await zeroDB.query(`
