@@ -6,10 +6,16 @@
 </template>
 
 <style lang="sass" scoped>
+	@import "../../sass/media.sass"
+
 	header
 		background-color: #327ACE
 		padding: 32px 256px
 		cursor: pointer
+
+		@include apply-to(less-than, 1280px)
+			padding: 32px 8px
+			text-align: center
 
 	h1, h2
 		display: inline-block
