@@ -8,9 +8,14 @@
 </template>
 
 <style lang="sass" scoped>
+	@import "../../sass/media.sass"
+
 	.slide
 		margin: 32px 256px
 		text-align: center
+
+		@include apply-to(less-than, $phone)
+			margin: 32px 16px
 
 	header
 		display: inline-block
