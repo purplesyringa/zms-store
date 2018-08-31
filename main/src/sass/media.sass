@@ -1,0 +1,11 @@
+// Media
+@mixin apply-to($ltgt, $what)
+	@if $ltgt == less-than
+		@media only screen and (max-width: $what)
+			@content
+	@if $ltgt == greater-than
+		@media only screen and (min-width: $what)
+			@content
+
+$phone: 420px
+$laptop: 1920px
