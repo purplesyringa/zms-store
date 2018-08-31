@@ -6,15 +6,18 @@
 </template>
 
 <style lang="sass" scoped>
+	@import "../../sass/media.sass"
+
 	$color: darken(#327ACE, 5%)
 	$light-color: lighten(#327ACE, 10%)
 
 	.btn
 		display: block
-		width: 450px
+		width: 420px
+		max-width: calc(100% - 60px)
 		margin: 0 30px
 		margin-top: 32px
-		padding: 25px 60px 25px 120px
+		padding: 25px 50px 25px 110px
 
 		position: relative
 
@@ -34,6 +37,10 @@
 		border-radius: 7px
 		box-shadow: 0 5px darken($color, 5%)
 
+		@include apply-to(less-than, $phone)
+			font-size: 16px
+			padding: 25px 50px 25px 100px
+
 	.btn:hover
 		box-shadow: 0 2px darken($color, 5%)
 		margin-top: 35px
@@ -49,6 +56,12 @@
 		width: 20%
 		height: 50%
 		color: rgba(0, 0, 0, 0.2)
+
+		@include apply-to(less-than, $phone)
+			width: 15%
+			height: 40%
+			left: 7.5%
+			top: 30%
 
 
 	.light
